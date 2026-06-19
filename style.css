@@ -277,13 +277,33 @@ button {
     display: flex;
     align-items: center;
     padding-top: 120px;
+    position: relative;
+    overflow: hidden;
 }
 
 .hero-container {
     display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
+    grid-template-columns: 1.25fr 0.75fr;
     gap: 40px;
     align-items: center;
+    position: relative;
+    width: 100%;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 5;
+}
+
+.hero-graphics {
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.95;
+    transition: var(--transition-slow);
 }
 
 .badge-glow {
@@ -472,6 +492,22 @@ button {
     justify-content: center;
     color: var(--text-primary);
     box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.node i {
+    display: inline-flex;
+}
+
+.node-flutter i {
+    animation: spinCCW 20s linear infinite;
+}
+
+.node-node i {
+    animation: spinCW 25s linear infinite;
+}
+
+.node-database i {
+    animation: spinCCW 30s linear infinite;
 }
 
 .node-flutter {
@@ -1168,16 +1204,44 @@ button {
     100% { transform: translate(-50%, -50%) rotate(-360deg); }
 }
 
+@keyframes spinCW {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes spinCCW {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(-360deg); }
+}
+
 /* --- Mobile Responsiveness (Media Queries) --- */
 @media (max-width: 992px) {
     .hero-container {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         text-align: center;
+        min-height: calc(100vh - 120px);
+        position: relative;
         gap: 60px;
     }
     
+    .hero-content {
+        max-width: 600px;
+        z-index: 5;
+        position: relative;
+    }
+    
     .hero-graphics {
-        order: -1;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        right: auto;
+        z-index: 1;
+        opacity: 0.45;
+        pointer-events: none;
     }
     
     .hero-ctas {
